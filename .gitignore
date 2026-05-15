@@ -1,0 +1,14 @@
+# Ignore the backend architecture document
+docs/02-backend-architecture.md
+
+# Angular related files
+/**/node_modules/
+/**/dist/
+/**/.vscode/
+/**/.angular/
+
+# .NET related files
+/**/bin/
+/**/obj/
+/**/.vs/
+/**/Logs/
