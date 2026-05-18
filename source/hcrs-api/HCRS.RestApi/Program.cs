@@ -1,32 +1,23 @@
+using HCRS.Application;
+using HCRS.Infrastructure;
+using HCRS.RestApi.Extensions;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(builder.Configuration)
-    .Enrich.FromLogContext()
-    .CreateLogger();
-
-builder.Host.UseSerilog();
-
 try
 {
-    Log.Information("Starting HCRS API");
+    // Add Services and Dependencies
+    builder.ConfigureSerilogLogging();
+    builder.Services.AddApplicationLayer(builder.Configuration);
+    builder.Services.AddInfrastructureLayer(builder.Configuration);
+    builder.ConfigureSwagger();
+    builder.ConfigureControllers();
 
-    builder.Services.AddControllers();
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen(options =>
-    {
-        options.SwaggerDoc("v1", new()
-        {
-            Title = "HCRS RestApi",
-            Version = "v1",
-            Description = "High-Concurrency Reservation System API for real-time bookings"
-        });
-    });
 
     var app = builder.Build();
 
+    Log.Information("Starting HCRS API");
     app.UseSerilogRequestLogging();
 
     if (app.Environment.IsDevelopment())
@@ -42,6 +33,10 @@ try
     app.MapControllers();
 
     app.Run();
+}
+catch (HostAbortedException)
+{
+    // Ignore EF Core design-time host abort
 }
 catch (Exception ex)
 {
