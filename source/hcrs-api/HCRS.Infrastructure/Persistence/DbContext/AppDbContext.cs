@@ -8,6 +8,7 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<UserRole> Roles => Set<UserRole>();
+    public DbSet<AppUser> Users => Set<AppUser>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

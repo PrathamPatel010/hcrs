@@ -22,6 +22,8 @@ try
 
     if (app.Environment.IsDevelopment())
     {
+        await app.MigrateDatabase();
+        await app.SeedDatabaseAsync();
         app.UseSwagger();
         app.UseSwaggerUI();
     }
