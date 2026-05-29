@@ -13,7 +13,7 @@ public static class DependencyInjection
 
     public static void ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<AppDbContext>(options=>
+        services.AddDbContext<HcrsDbContext>(options=>
         {
             options.UseSqlServer(configuration[SettingsConstants.DB_CONNECTION_STRING]);
         });

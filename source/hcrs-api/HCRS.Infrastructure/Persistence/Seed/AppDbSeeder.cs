@@ -1,36 +1,38 @@
 ﻿using HCRS.Domain.Entities;
+using Medo;
 using Microsoft.EntityFrameworkCore;
 
 namespace HCRS.Infrastructure.Persistence.Seed;
 
 public static class AppDbSeeder
 {
-    public static async Task SeedAsync(AppDbContext context)
+    public static async Task SeedAsync(HcrsDbContext context)
     {
+        var systemId = Uuid7.NewUuid7();
         if (!await context.Roles.AnyAsync())
         {
             var adminRole = new UserRole
             {
-                Id = Guid.NewGuid(),
+                Id = Uuid7.NewUuid7(),
                 Name = "Admin",
                 CreatedAt = DateTimeOffset.UtcNow,
-                CreatedBy = Guid.NewGuid(),
+                CreatedBy = systemId,
             };
 
             var ownerRole = new UserRole
             {
-                Id = Guid.NewGuid(),
+                Id = Uuid7.NewUuid7(),
                 Name = "Owner",
                 CreatedAt = DateTimeOffset.UtcNow,
-                CreatedBy = Guid.NewGuid(),
+                CreatedBy = systemId,
             };
 
             var customerRole = new UserRole
             {
-                Id = Guid.NewGuid(),
+                Id = Uuid7.NewUuid7(),
                 Name = "Customer",
                 CreatedAt = DateTimeOffset.UtcNow,
-                CreatedBy = Guid.NewGuid(),
+                CreatedBy = systemId,
             };
 
             await context.Roles.AddRangeAsync(
@@ -44,13 +46,14 @@ public static class AppDbSeeder
             {
                 var adminUser = new AppUser
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Uuid7.NewUuid7(),
                     UserName = "admin",
                     UserEmail = "admin@hcrs.com",
-                    PasswordHash = "Admin@123", // For now only
+                    UserDisplayName = "Admin",
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@123"), 
                     RoleId = adminRole.Id,
                     CreatedAt = DateTimeOffset.UtcNow,
-                    CreatedBy = Guid.NewGuid()
+                    CreatedBy = systemId
                 };
 
                 await context.Users.AddAsync(adminUser);

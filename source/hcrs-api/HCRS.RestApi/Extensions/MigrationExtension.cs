@@ -14,7 +14,7 @@ public static class MigrationExtension
         {
             logger.LogInformation("Checking for pending database migrations...");
 
-            var context = services.GetRequiredService<AppDbContext>();
+            var context = services.GetRequiredService<HcrsDbContext>();
 
             var pendingMigrations = context.Database.GetPendingMigrations();
 

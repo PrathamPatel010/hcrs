@@ -13,10 +13,13 @@ public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
 
         builder.ToTable("Users");
 
+        builder.Property(builder => builder.UserName)
+            .IsRequired()
+            .HasMaxLength(255);
         builder.Property(builder => builder.UserEmail)
             .IsRequired()
             .HasMaxLength(255);
-        builder.Property(builder => builder.UserName)
+        builder.Property(builder => builder.UserDisplayName)
             .IsRequired()
             .HasMaxLength(255);
         builder.Property(builder => builder.PasswordHash)

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HCRS.Infrastructure.Persistence.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(HcrsDbContext))]
     [Migration("20260517094216_InitialCreate")]
     partial class InitialCreate
     {

@@ -12,7 +12,7 @@ public static class SeederExtension
         try
         {
             logger.LogInformation("Starting database seeding...");
-            var context = services.GetRequiredService<AppDbContext>();
+            var context = services.GetRequiredService<HcrsDbContext>();
             await AppDbSeeder.SeedAsync(context);
             logger.LogInformation("Database seeding completed.");
         }
