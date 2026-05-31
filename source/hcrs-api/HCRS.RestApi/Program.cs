@@ -1,6 +1,7 @@
 using HCRS.Application;
 using HCRS.Infrastructure;
 using HCRS.RestApi.Extensions;
+using HCRS.RestApi.Middlewares;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,8 +19,9 @@ try
     var app = builder.Build();
 
     Log.Information("Starting HCRS API");
-    app.UseSerilogRequestLogging();
-
+    app.UseMiddleware<CorrelationIdMiddleware>();
+    app.UseSerilogLogging();
+    app.UseMiddleware<ErrorHandlingMiddleware>();
     if (app.Environment.IsDevelopment())
     {
         await app.MigrateDatabase();

@@ -12,4 +12,17 @@ public static class LoggingExtension
             .CreateLogger();
         builder.Host.UseSerilog();
     }
+
+    public static void UseSerilogLogging(this WebApplication app)
+    {
+        app.UseSerilogRequestLogging(options =>
+        {
+            options.MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
+        
+            options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+                {
+                    diagnosticContext.Set("CorrelationId",httpContext.GetCorrelationId());
+                };
+        });
+    }
 }
