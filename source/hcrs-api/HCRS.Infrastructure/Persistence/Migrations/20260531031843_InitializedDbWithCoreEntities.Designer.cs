@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HCRS.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(HcrsDbContext))]
-    [Migration("20260529173214_UpdatedUserTableAddedUserDisplayName")]
-    partial class UpdatedUserTableAddedUserDisplayName
+    [Migration("20260531031843_InitializedDbWithCoreEntities")]
+    partial class InitializedDbWithCoreEntities
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

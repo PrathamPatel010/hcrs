@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HCRS.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(HcrsDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    partial class HcrsDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
